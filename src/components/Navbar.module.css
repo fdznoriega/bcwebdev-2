@@ -1,0 +1,31 @@
+
+.navbar{
+    display: flex;
+    /* make items evenly spaced at the bottom */
+    justify-content: space-between;
+    align-items: center;
+    /* changes border box */
+    box-sizing: border-box;
+    /* make the position always be at the bottom of the screen */
+    position: fixed;
+    bottom: 0;
+    width:100%;
+    height: 44px;
+    padding:0px 18px;
+    
+    border-top: 1px solid #dbdbdb;
+    background-color: #fff;
+}
+
+button {
+    padding: 0;
+    border:0;
+    background: none;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+button:focus {
+    outline: none;
+}
+  
