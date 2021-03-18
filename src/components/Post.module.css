@@ -1,0 +1,48 @@
+
+.post {
+    display: flex;
+    flex-flow: column;
+}
+
+.postHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.profilePicture {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.postImage {
+    object-fit: fill;
+}
+
+.numberOfLikes {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.bubble {
+    margin: 5px;
+}
+
+.datetime {
+    font-size: 12px;
+    margin-top: 10px;
+    color: gray;
+}
+
+.comment {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.description {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
