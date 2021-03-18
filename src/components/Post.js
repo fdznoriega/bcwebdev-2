@@ -1,16 +1,19 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import css from './Post.module.css';
 import publicUrl from 'utils/publicUrl';
 import timespan from 'utils/timespan';
 
 function Post(props) {
 
+    const [comment, setComment] = useState('');
+    const [toggleComment, setToggleComment] = useState(false); // hidden initially
+
     function renderComments(comments) {
         if(comments.length === 0) { return; }
         else {
             let arr = [];
-            comments.forEach((comment, i) => arr.push(<p key={i} className={css.comment}><b>{comment.userId}</b> {comment.text}</p>) );
+            comments.forEach((c, i) => arr.push(<p key={i} className={css.comment}><b>{c.userId}</b> {c.text}</p>) );
             return arr;
         }
     }
@@ -22,6 +25,15 @@ function Post(props) {
     function handleUnlike() {
         props.onUnlike(props.post.id)
     }
+
+    
+    function handleSubmitComment(event){
+        props.onComment(props.post.id, comment); // this calls addComment from App.js
+        setComment(''); //reset
+        setToggleComment(false); //close comment box
+        event.preventDefault(); // prevent page refresh
+    }
+
 
     return (
         <div className={css.post}>
@@ -44,7 +56,11 @@ function Post(props) {
                 </button>
 
                 <button>
-                    <img className={css.bubble} src={publicUrl("/assets/comment.svg")} alt="Comment"/>
+                    <img 
+                        className={css.bubble} 
+                        onClick={e => setToggleComment(!toggleComment)}
+                        src={publicUrl("/assets/comment.svg")} 
+                        alt="Comment Action"/>
                 </button>
                 
                 
@@ -64,6 +80,22 @@ function Post(props) {
 
             {/* date of post */}
             <p className={css.datetime}>{timespan(props.post.datetime)} ago</p>
+
+            {/* form at the bottom for commenting? */}
+            {/* conditional rendering below */}
+            {
+                toggleComment &&
+                <form className={css.addComment} onSubmit={handleSubmitComment}>
+                    <input 
+                        type="text" 
+                        placeholder="Add a comment…" 
+                        value={comment} 
+                        onChange={e=>setComment(e.target.value)}
+                    />
+                    <button type="submit">Post</button>
+                </form>
+            }
+            
         </div>);
 }
 

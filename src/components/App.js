@@ -9,6 +9,7 @@ import Profile from './Profile';
 import css from './App.module.css';
 import React, {useState} from 'react';
 import initialStore from '../utils/initialStore.js';
+import uniqueId from '../utils/uniqueId';
 
 
 function App() {
@@ -39,14 +40,69 @@ function App() {
     })
   }
 
+
+  function addComment(postId, text) {
+   
+    const comment = {
+      userId: store.currentUserId, 
+      postId,
+      text,
+      datetime: new Date().toISOString()
+    };
+
+    setStore({
+      ...store,
+      comments:store.comments.concat(comment)
+    });
+
+  }
+
+  function addPost(photo, desc){
+		// 1. Create a new post object (use uniqueId('post') to create an id)
+    const post = {
+      id: uniqueId('post'),
+      userId: store.currentUserId,
+      photo: photo,
+      desc,
+      datetime: new Date().toISOString()
+    }
+    
+    console.log(post);
+
+		// 2. Update the store 
+    setStore({
+      ...store,
+      posts: store.posts.concat(post)
+    });
+
+		// 3. Call setPage to come back to the home page
+    setPage('home')
+
+  }
+	function cancelPost(){
+		// 1. Call setPage to come back to the home page (we will use Router to improve this)
+    setPage('home')
+	}
+
+
   function renderMain(p) {
     switch(p) {
-      case "Home": return <Home store={store} onLike={addLike} onUnlike={removeLike} />;
+      case "Home": return <Home 
+        store={store} 
+        onLike={addLike} 
+        onUnlike={removeLike} 
+        onComment={addComment}
+        />;
       case "Explore": return <Explore />
-      case "NewPost": return <NewPost />
+      case "NewPost": return <NewPost store={store} onAddPost={addPost} onCancelPost={cancelPost}/>
       case "Activity": return <Activity />
       case "Profile": return <Profile store={store}/>
-      default: return <Home store={store} onLike={addLike} onUnlike={removeLike} />;
+      default: return <Home 
+        store={store} 
+        onLike={addLike} 
+        onUnlike={removeLike} 
+        onComment={addComment}
+        />;
     }
   }
 
