@@ -1,9 +1,8 @@
 
 // utils/publicUrl
-// this is used in react production apparently?
 
 let publicUrl = assetPath => {
-    return process.env.PUBLIC_URL+assetPath;
+    return assetPath.startsWith('/') ? process.env.PUBLIC_URL + assetPath : assetPath;
 }
 
 export default publicUrl;
