@@ -8,16 +8,21 @@ import PostThumbnail from './PostThumbnail';
 function Profile(props) {
 
     const currentUser = props.store.users.filter( user => user.id === props.store.currentUserId)[0];
+    const userPosts = props.store.posts.filter(post => post.userId === currentUser.id);
+    
+    const followers = [];
+    const following = [];
 
-    console.log(currentUser);
+    props.store.followers.forEach(f => {
+        if(f.userId === currentUser.id) { followers.push(f)}
+        else if(f.followerId === currentUser.id) { following.push(f)}
+    });
 
     function renderThumbnails() {
-        // grab previous posts
-        let previousPosts = props.store.posts.filter(post => post.userId === currentUser.id);
-
+        
         let thumbnails = [];
 
-        previousPosts.forEach((post, index) => {
+        userPosts.forEach((post, index) => {
             thumbnails.push(<PostThumbnail key={index} post={post} />)
         });
 
@@ -32,15 +37,28 @@ function Profile(props) {
                 <p className={css.userId}>{currentUser.id}</p>
             </section>
 
-            <section className={css.bio}>
-                <p>{currentUser.name}</p>
+            <section>
+                <p><b>{currentUser.name}</b></p>
                 <p>{currentUser.bio}</p>
             </section>
 
             <section className={css.stats}>
-                <p>Posts</p>
-                <p>Followers</p>
-                <p>Following</p>
+                <div>
+                    <p><b>{userPosts.length}</b></p>
+                    <p>posts</p>
+                </div>
+
+                <div>
+                    <p><b>{followers.length}</b></p>
+                    <p>followers</p>
+                </div>
+                
+                <div>
+                    <p><b>{following.length}</b></p>
+                    <p>following</p>
+                </div>
+                
+                
             </section>
 
             <section className={css.posts}>
