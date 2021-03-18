@@ -1,0 +1,35 @@
+
+
+.profile {
+    width: 100%;
+}
+
+.profileInfo {
+    display:flex;
+    align-content: center;
+}
+
+.profilePic {
+    width: 80px;
+    height: auto;
+    border-radius: 100%;
+    padding: 10px;
+}
+
+.userId {
+    font-size: 28px;
+}
+
+.bio {
+
+}
+
+.stats {
+    display: flex;
+}
+
+.posts{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+}

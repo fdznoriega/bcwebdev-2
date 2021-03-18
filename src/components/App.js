@@ -63,7 +63,7 @@ class App extends React.Component {
       case "Explore": return <Explore />
       case "NewPost": return <NewPost />
       case "Activity": return <Activity />
-      case "Profile": return <Profile />
+      case "Profile": return <Profile store={this.state.store}/>
       default: return <Home store={this.state.store} onLike={this.addLike} onUnlike={this.removeLike} />;
     }
   }
