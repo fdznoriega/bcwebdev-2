@@ -16,12 +16,10 @@ function Post(props) {
     }
 
     function handleLike() {
-        console.log('handle like?')
         props.onLike(props.post.id)
     }
 
     function handleUnlike() {
-        console.log('handle unlike?')
         props.onUnlike(props.post.id)
     }
 
