@@ -1,11 +1,13 @@
 
 import React from 'react';
 import Post from './Post';
+import {useParams} from 'react-router-dom';
 
 function Home(props) {
 
     // fetch the single source of truth
     const {store} = props;
+    let {postId} = useParams();
 
     function findUser(post, s){
         return s.users.find(user=>user.id===post.userId);
@@ -25,7 +27,8 @@ function Home(props) {
     
     return (
         <div>
-            {store.posts.sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
+            {store.posts
+            .sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
             .map(post =>
                 <Post
                     key={post.id}
@@ -36,7 +39,11 @@ function Home(props) {
                     onLike={props.onLike}
                     onUnlike={props.onUnlike}
                     onComment={props.onComment}
-                />)}
+                />
+            )
+            .filter(post => postId ? post.id === postId : true)
+            
+            }
         </div>
     );
 }

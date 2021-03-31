@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import css from './NewPost.module.css';
 import FileLoader from './FileLoader.js';
+import {useHistory} from 'react-router-dom'
 
 function NewPost(props) {
 
@@ -9,6 +10,7 @@ function NewPost(props) {
     const [desc, setDesc] = useState('');
     const [photo, setPhoto] = useState(null);
     const [error, setError] = useState('');
+    const history = useHistory();
 
     function handleFileDragEnter(e){
         setDragging(true);
@@ -48,11 +50,11 @@ function NewPost(props) {
         }
         // 3. Call the storage update function passed from the parent
         props.onAddPost(photo, desc);
-        // 3. Clear error msg)
+        // 3. Clear error msg
         setError('')
     }
     function handleCancel(){
-        props.onCancelPost()
+        history.goBack();
     }
 
     return (
@@ -71,7 +73,6 @@ function NewPost(props) {
             </div>
             
             <div className={css.desc} >
-                {/* TODO: add textarea */}
                 <input onChange={handleDescChange} className={css.textarea}></input>
 
             </div>

@@ -4,6 +4,7 @@ import React from 'react'
 import css from './Profile.module.css'
 import publicUrl from '../utils/publicUrl';
 import PostThumbnail from './PostThumbnail';
+import {Link} from 'react-router-dom';
 
 function Profile(props) {
 
@@ -23,7 +24,12 @@ function Profile(props) {
         let thumbnails = [];
 
         userPosts.forEach((post, index) => {
-            thumbnails.push(<PostThumbnail key={index} post={post} />)
+            thumbnails.push(
+            <Link key={index} to={post.id}>
+                <PostThumbnail key={index} post={post} />
+            </Link>
+                
+            )
         });
 
         return thumbnails;
