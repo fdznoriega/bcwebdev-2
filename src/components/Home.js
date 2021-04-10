@@ -29,6 +29,14 @@ function Home(props) {
         <div>
             {store.posts
             .sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
+            .filter(post => {
+                if(postId) {
+                    return postId === post.id;
+                }
+                else {
+                   return true; 
+                }
+            })
             .map(post =>
                 <Post
                     key={post.id}
@@ -41,7 +49,7 @@ function Home(props) {
                     onComment={props.onComment}
                 />
             )
-            .filter(post => postId ? post.id === postId : true)
+            
             
             }
         </div>

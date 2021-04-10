@@ -51,7 +51,9 @@ function NewPost(props) {
         // 3. Call the storage update function passed from the parent
         props.onAddPost(photo, desc);
         // 3. Clear error msg
-        setError('')
+        setError('');
+        // return home?
+        history.push('/');
     }
     function handleCancel(){
         history.goBack();

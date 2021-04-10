@@ -24,7 +24,7 @@ function Navbar() {
                 </Link>
             </div>
             <div className={css.navItem}>
-                <Link to="/newpost">
+                <Link to="/activity">
                     <img src={publicUrl('/assets/activity.svg')} alt="Activity" />
                 </Link>
             </div>

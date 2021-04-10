@@ -62,6 +62,23 @@ function App() {
 
   }
 
+  function addFollower(userId, followerId) {
+    setStore({
+      ...store,
+      followers: store.followers.concat({
+        userId,
+        followerId
+      })
+    })
+  }
+
+  function removeFollower(userId, followerId) {
+    setStore({
+      ...store,
+      followers: store.followers.filter(f => f.userId === userId && f.followerId === followerId ? false : true)
+    });
+  }
+
   function addPost(photo, desc){
 		// 1. Create a new post object (use uniqueId('post') to create an id)
     const post = {
@@ -101,26 +118,23 @@ function App() {
               <Activity />
             </Route>
             {/* profile */}
-            <Route path='/profile'>
-              <Profile store={store}/>
+            <Route path='/profile/:userId?'>
+              <Profile 
+                store={store}
+                onFollow={addFollower}
+                onUnfollow={removeFollower}
+              />
             </Route>
             {/* home */}
-            <Route path='/'>
+            <Route path='/:postId?'>
               <Home 
                 store={store} 
                 onLike={addLike} 
                 onUnlike={removeLike} 
                 onComment={addComment}
-              />;
-            </Route>
-            {/* post id */}
-            <Route path="/:postId?">
-              <Home store={store}
-                onLike={addLike}
-                onUnlike={removeLike}
-                onComment={addComment}
               />
             </Route>
+            
           </Switch>
         </main>
         <Navbar/>

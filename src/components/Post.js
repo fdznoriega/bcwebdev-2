@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import css from './Post.module.css';
 import publicUrl from 'utils/publicUrl';
 import timespan from 'utils/timespan';
+import {Link} from 'react-router-dom';
 
 function Post(props) {
 
@@ -40,7 +41,14 @@ function Post(props) {
             {/* top line is user profile and name */}
             <div className={css.postHeader}>
                 <img className={css.profilePicture} src={publicUrl(props.user.photo)} alt="Profile"/>
-                <span><b>{props.user.id}</b></span>
+                <span>
+                    {/* user ids should send the user to that profile */}
+                    <Link to={'/profile/' + props.user.id}>
+                        <b>{props.user.id}</b>
+                    </Link>
+                    
+                
+                </span>
             </div>
             {/* image (primary post content) */}
             <img className={css.postImage} src={publicUrl(props.post.photo)} alt="Post"/>
