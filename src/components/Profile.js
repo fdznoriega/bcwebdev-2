@@ -46,9 +46,15 @@ function Profile(props) {
     }
 
     function renderButton() {
-        return(
-            <button onClick={props.onFollow}>Follow</button>
 
+        let follower = props.store.followers
+            .filter(f => f.userId === props.store.currentUserId && f.followerId === userId.userId)[0];
+        
+        return(
+            follower === undefined ? 
+                <button onClick={props.onFollow}>Follow</button> :
+                <button onClick={props.onUnfollow}>Unfollow</button>
+                
         );
     }
 
