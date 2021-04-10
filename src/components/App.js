@@ -63,6 +63,10 @@ function App() {
   }
 
   function addFollower(userId, followerId) {
+    
+    console.log("ADDING FOLLOWER");
+    console.log(userId, followerId);
+
     setStore({
       ...store,
       followers: store.followers.concat({
@@ -70,9 +74,11 @@ function App() {
         followerId
       })
     })
+    console.log(store.followers);
   }
 
   function removeFollower(userId, followerId) {
+    console.log("REMOVING FOLLOWER")
     setStore({
       ...store,
       followers: store.followers.filter(f => f.userId === userId && f.followerId === followerId ? false : true)
@@ -104,7 +110,6 @@ function App() {
         <Header/>
         <main className={css.content}>
           <Switch>
-            
             {/* explore */}
             <Route path='/explore'>
               <Explore />
@@ -134,7 +139,7 @@ function App() {
                 onComment={addComment}
               />
             </Route>
-            
+
           </Switch>
         </main>
         <Navbar/>

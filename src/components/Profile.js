@@ -45,6 +45,16 @@ function Profile(props) {
         return thumbnails;
     }
 
+    function handleFollow(event) {
+        props.onFollow(props.store.currentUserId, userId.userId);
+        event.preventDefault();
+    }
+
+    function handleUnfollow(event) {
+        props.onUnfollow(props.store.currentUserId, userId.userId);
+        event.preventDefault();
+    }
+
     function renderButton() {
 
         let follower = props.store.followers
@@ -52,8 +62,8 @@ function Profile(props) {
         
         return(
             follower === undefined ? 
-                <button onClick={props.onFollow}>Follow</button> :
-                <button onClick={props.onUnfollow}>Unfollow</button>
+                <button onClick={handleFollow}>Follow</button> :
+                <button onClick={handleUnfollow}>Unfollow</button>
                 
         );
     }
