@@ -1,10 +1,15 @@
 
-import React, {useState} from 'react';
+// context lab
+import React, { useContext, useState } from 'react';
+import { StoreContext } from 'contexts/StoreContext';
+
 import css from './NewPost.module.css';
 import FileLoader from './FileLoader.js';
 import {useHistory} from 'react-router-dom'
 
-function NewPost(props) {
+function NewPost() {
+
+    let { addPost } = useContext(StoreContext);
 
     const [dragging, setDragging] = useState(false);
     const [desc, setDesc] = useState('');
@@ -49,7 +54,7 @@ function NewPost(props) {
             console.error('Could not add post'); return; 
         }
         // 3. Call the storage update function passed from the parent
-        props.onAddPost(photo, desc);
+        addPost(photo, desc);
         // 3. Clear error msg
         setError('');
         // return home?

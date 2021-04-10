@@ -1,33 +1,39 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
+import { StoreContext } from 'contexts/StoreContext';
 import Post from './Post';
 import {useParams} from 'react-router-dom';
 
-function Home(props) {
+function Home() {
+
+    let {
+        posts, users, comments, likes, currentUserId, 
+        addComment, addLike, removeLike
+    } = useContext(StoreContext);
+
 
     // fetch the single source of truth
-    const {store} = props;
     let {postId} = useParams();
 
-    function findUser(post, s){
-        return s.users.find(user=>user.id===post.userId);
+    function findUser(post){
+        return users.find(user=>user.id===post.userId);
     }
     
-    function findComments(post, s){
-        return s.comments.filter(comment=>comment.postId===post.id);
+    function findComments(post){
+        return comments.filter(comment=>comment.postId===post.id);
     }
     
-    function findLikes(post, s){
-        let postLikes = s.likes.filter(like=>like.postId===post.id);
+    function findLikes(post){
+        let postLikes = likes.filter(like=>like.postId===post.id);
         return {
-            self: postLikes.some(like=> like.userId===s.currentUserId),
+            self: postLikes.some(like=> like.userId===currentUserId),
             count: postLikes.length
         }
     }
     
     return (
         <div>
-            {store.posts
+            {posts
             .sort((a,b)=>new Date(b.datetime) - new Date(a.datetime))
             .filter(post => {
                 if(postId) {
@@ -40,13 +46,13 @@ function Home(props) {
             .map(post =>
                 <Post
                     key={post.id}
-                    user={findUser(post, store)}
+                    user={findUser(post)}
                     post={post}
-                    comments={findComments(post, store)}
-                    likes={findLikes(post, store)}
-                    onLike={props.onLike}
-                    onUnlike={props.onUnlike}
-                    onComment={props.onComment}
+                    comments={findComments(post)}
+                    likes={findLikes(post)}
+                    onLike={addLike}
+                    onUnlike={removeLike}
+                    onComment={addComment}
                 />
             )
             
