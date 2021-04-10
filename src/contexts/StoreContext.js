@@ -1,11 +1,19 @@
 
-import React, {createContext, useState} from 'react';
+import React, {createContext, useState, useEffect} from 'react';
 import initialStore from '../utils/initialStore.js';
 import uniqueId from '../utils/uniqueId';
 
 function StoreContextProvider(props) {
 
-    const [store, setStore] = useState(initialStore);
+    // calls JSON parse only on the first load
+    const [store, setStore] = useState(()=>{
+        return JSON.parse(window.localStorage.getItem('store')) || initialStore;
+    });
+
+    // use "use effect" to update the storage after each render
+    useEffect(()=>{
+        window.localStorage.setItem('store', JSON.stringify(store));
+    }, [store]);
   
     function addLike(postId) {
 
