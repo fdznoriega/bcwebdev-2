@@ -26,12 +26,12 @@ function Profile() {
     }
 
     const userPosts = posts.filter(post => post.userId === currentUser.id);
-    
-    const following = [];
 
-    followers.forEach(f => {
-        if(f.followerId === currentUserId) { following.push(f)}
-    });
+    // define follower count and following count
+    let followerCount = followers.filter(f => f.userId === currentUserId).length;
+    let followingCount = followers.filter(f => f.followerId === currentUserId).length;
+
+    console.log(followers);
 
     function renderThumbnails() {
         
@@ -95,12 +95,12 @@ function Profile() {
                 </div>
 
                 <div>
-                    <p><b>{followers.length}</b></p>
+                    <p><b>{followerCount}</b></p>
                     <p>followers</p>
                 </div>
                 
                 <div>
-                    <p><b>{following.length}</b></p>
+                    <p><b>{followingCount}</b></p>
                     <p>following</p>
                 </div>
                 

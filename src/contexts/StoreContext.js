@@ -58,8 +58,8 @@ function StoreContextProvider(props) {
     function addFollower(userId, followerId) {
 
         const follower = {
-            userId, 
-            followerId
+            userId: userId,
+            followerId: followerId
         }
 
         setStore({
