@@ -17,8 +17,6 @@ function Profile() {
         currentUserId,addFollower,removeFollower 
     } = useContext(StoreContext);
 
-    console.log("PROFILE: current user id: " + currentUserId)
-
     let params = useParams();
     
     let currentUser;

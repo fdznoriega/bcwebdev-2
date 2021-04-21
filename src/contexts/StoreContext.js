@@ -186,7 +186,7 @@ function StoreContextProvider(props) {
 
         setPosts(posts.concat(post));
 
-        // add post to firestore?
+        db.collection('posts').add(post);
 
     }
 

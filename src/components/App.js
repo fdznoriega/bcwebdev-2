@@ -52,14 +52,14 @@ function App() {
                 <Signup />
               </Route>
               
-              {/* profile */}
-              <Route path='/profile/:userId?'>
-                <Profile />
-              </Route>
-              
               {/* login */}
               <Route path="/login">
 	              <Login />
+              </Route>
+
+              {/* profile */}
+              <Route path='/profile/:userId?'>
+                <Profile />
               </Route>
               
               {/* home */}
