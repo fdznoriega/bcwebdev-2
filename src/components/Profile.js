@@ -7,6 +7,9 @@ import publicUrl from '../utils/publicUrl';
 import PostThumbnail from './PostThumbnail';
 import {Link, useParams} from 'react-router-dom';
 
+import { Redirect } from "react-router-dom";
+
+
 function Profile() {
 
     let { 
@@ -14,24 +17,25 @@ function Profile() {
         currentUserId,addFollower,removeFollower 
     } = useContext(StoreContext);
 
-    let userId = useParams();
+    console.log("PROFILE: current user id: " + currentUserId)
+
+    let params = useParams();
+    
     let currentUser;
-
-    // if userid is defined...
-    if(userId.userId) {
-        currentUser = users.filter( user => user.id === userId.userId)[0];
-    }
-    else {
-        currentUser = users.filter( user => user.id === currentUserId)[0];
-    }
-
-    const userPosts = posts.filter(post => post.userId === currentUser.id);
-
+    let userPosts;
     // define follower count and following count
     let followerCount = followers.filter(f => f.userId === currentUserId).length;
     let followingCount = followers.filter(f => f.followerId === currentUserId).length;
 
-    console.log(followers);
+    // user looking for another user
+    if(params.userId === undefined || currentUserId === undefined) {
+        currentUser = users.filter( user => user.id === currentUserId)[0];
+        userPosts = posts.filter(post => post.userId === currentUserId);
+    }
+    else {
+        currentUser = users.filter( user => user.id === params.userId)[0];
+        userPosts = posts.filter(post => post.userId === currentUser.id);
+    }
 
     function renderThumbnails() {
         
@@ -50,19 +54,19 @@ function Profile() {
     }
 
     function handleFollow(event) {
-        addFollower(currentUserId, userId.userId);
+        addFollower(currentUserId, params.userId);
         event.preventDefault();
     }
 
     function handleUnfollow(event) {
-        removeFollower(currentUserId, userId.userId);
+        removeFollower(currentUserId, params.userId);
         event.preventDefault();
     }
 
     function renderButton() {
 
         let follower = followers
-            .filter(f => f.userId === currentUserId && f.followerId === userId.userId)[0];
+            .filter(f => f.userId === currentUserId && f.followerId === params.userId)[0];
         
         return(
             follower === undefined ? 
@@ -73,6 +77,7 @@ function Profile() {
     }
 
     return (
+        !currentUserId ? <Redirect to="login"/> :
         <div className={css.profile}>
             
             <section className={css.profileInfo}>

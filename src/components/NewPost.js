@@ -7,9 +7,11 @@ import css from './NewPost.module.css';
 import FileLoader from './FileLoader.js';
 import {useHistory} from 'react-router-dom'
 
+import { Redirect } from "react-router-dom";
+
 function NewPost() {
 
-    let { addPost } = useContext(StoreContext);
+    let { addPost, currentUserId } = useContext(StoreContext);
 
     const [dragging, setDragging] = useState(false);
     const [desc, setDesc] = useState('');
@@ -65,6 +67,7 @@ function NewPost() {
     }
 
     return (
+        !currentUserId ? <Redirect to="login"/> :
         <div>
             <div className={css.photo}>
               {!photo?  <div className={css.message}>Drop your image</div>:

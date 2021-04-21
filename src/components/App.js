@@ -6,8 +6,9 @@ import Explore from './Explore';
 import NewPost from './NewPost';
 import Activity from './Activity';
 import Profile from './Profile';
+import Login from './Login'
+import Signup from './Signup'
 import css from './App.module.css';
-import React, {useState} from 'react';
 
 // react router
 import {
@@ -30,22 +31,37 @@ function App() {
           <Header/>
           <main className={css.content}>
             <Switch>
+              
               {/* explore */}
               <Route path='/explore'>
                 <Explore />
               </Route>
+              
               {/* new post */}
               <Route path='/newpost'>
                 <NewPost />
               </Route>
+              
               {/* activity */}
               <Route path='/activity'>
                 <Activity />
               </Route>
+              
+              {/* signup */}
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              
               {/* profile */}
               <Route path='/profile/:userId?'>
                 <Profile />
               </Route>
+              
+              {/* login */}
+              <Route path="/login">
+	              <Login />
+              </Route>
+              
               {/* home */}
               <Route path='/:postId?'>
                 <Home />
